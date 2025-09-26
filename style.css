@@ -163,6 +163,7 @@ ul,nav{
 .stat-container{
   display: grid;
   grid-template-columns: 80px 30px 1fr;
+  align-items: center;
   width: 100%;
   font-size: 14px;
 }
