@@ -191,6 +191,21 @@ ul,nav{
 
 /*#endregion modal stats view*/
 
+/*#region moves list*/
+.moves-list{
+  padding-left:26px;
+  font-size: 14px;
+}
+.moves-list >li + li{
+  margin-top:8px;
+}
+.move-item{
+  text-transform: capitalize;
+  list-style: decimal-leading-zero ;
+}
+
+/*#endregion moves list*/
+
 /*#region tabs*/
 .tabs-container{
   grid-area: tabs;
@@ -203,6 +218,9 @@ ul,nav{
   text-transform: capitalize;
   font-size: 12px;
   font-weight: 600;
+}
+.tab + .tab{
+  margin-left: 8px;
 }
 .tab.is-active{
   position:relative;
@@ -217,5 +235,6 @@ ul,nav{
   background-color: orangered;
 }
 /*#endregion tabs*/
+
 
 
