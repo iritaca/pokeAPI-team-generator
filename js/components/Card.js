@@ -14,7 +14,7 @@ import { PokemonTypes } from './Tag.js'
  * @param {string} data.id - Unique id for the pokemon
  * @param {string} data.name - Display the pokemon name
  * @param {string[]} data.types - Array of pokemon types
- * @param {string} data.sprite - The URL of the pokemon sprite image
+ * @param {string} data.sprite - The image source 
  * @returns {HTMLDivElement} - representing the pokemon
  */
 const Card=({data})=>{
