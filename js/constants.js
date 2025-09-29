@@ -20,3 +20,6 @@ export const typeColors={
         'steel':'silver',
         'ice':'cyan',
     }
+
+// Maximum number of attacks to fetch from the API
+export const MOVES_LIMIT = 20

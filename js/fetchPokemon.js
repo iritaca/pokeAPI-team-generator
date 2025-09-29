@@ -1,4 +1,4 @@
-import {pokemonLimit} from './constants.js'
+import {MOVES_LIMIT, pokemonLimit} from './constants.js'
 
 /**
  * Fetch the initial list of pokemon from the API
@@ -33,7 +33,7 @@ export const fetchAllPokemonData = async()=>{
     
 
     const allData = await Promise.all(
-        list.map(async(p,i)=>{
+        list.map(async(p,_)=>{
             try{
                 const res = await fetch(p.url)
                 const data = await res.json()
@@ -51,7 +51,7 @@ export const fetchAllPokemonData = async()=>{
         sprite: p.sprites.front_default,
         stats:p.stats,
         species:p.species.url,
-        moves:p.moves.slice(0,15)
+        moves:p.moves.slice(0,MOVES_LIMIT)
     }))
 
     localStorage.setItem('pokemonList',JSON.stringify(minimalData))
