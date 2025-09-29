@@ -1,11 +1,6 @@
 import {team$,selectedPokemon$} from '../utils/observer.js'
 import Card from './Card.js'
 
-/** TODO: 
- * - Add smooth animations for the creation of each card
- * - Add loaders to enhance UX
-*/
-
 /**Creates a responsive grid container for displaying the Pokemon team
  * 
  * The grid stays in sync with the 'team$' observable:
