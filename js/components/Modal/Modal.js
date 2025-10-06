@@ -31,7 +31,8 @@ const Modal=({list})=>{
     selectedPokemon$.subscribe(id =>{
         if(!id) {
             overlay.style.display='none'
-            return}
+            return
+        }
         
         const pokemon = list.find(p=>p.id ==id)
         if(!pokemon) return
