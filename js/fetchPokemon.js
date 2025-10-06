@@ -1,11 +1,11 @@
-import {MOVES_LIMIT, pokemonLimit} from './constants.js'
+import {MOVES_LIMIT, pokemonLimit,pokemonOffset} from './constants.js'
 
 /**
  * Fetch the initial list of pokemon from the API
  */
 const fetchList = async ()=>{
     try{
-        const res = await fetch(`https://pokeapi.co/api/v2/pokemon?offset=0&limit=${pokemonLimit}`)
+        const res = await fetch(`https://pokeapi.co/api/v2/pokemon?offset=${pokemonOffset}&limit=${pokemonLimit}`)
         const data = await res.json()
         return data.results
     }
