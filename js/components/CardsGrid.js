@@ -1,4 +1,4 @@
-import {team$,selectedPokemon$} from '../utils/observer.js'
+import {team$,selectedPokemon$, filtersList$} from '../utils/observer.js'
 import Card from './Card.js'
 
 /**Creates a responsive grid container for displaying the Pokemon team
@@ -15,7 +15,7 @@ export const CardsGrid=()=>{
     const container = document.createElement('div')
     container.classList.add('cards-grid')
 
-    let prevTeam = []
+    let allCards=[]
 
     /**
      * Renders the current team into the grid
@@ -24,26 +24,34 @@ export const CardsGrid=()=>{
      * 
      * @param {Array<Object>} newTeam  - The new team to render 
      */
-    const render = (newTeam =[])=>{
-        container.replaceChildren()
+    const renderTeam = (newTeam)=>{
+        container.replaceChildren() // clear previous content
+        allCards=[] // resets all cards array
+
         if(!Array.isArray(newTeam)|| newTeam.length===0){
-            container.replaceChildren()
             const emptyMsg= document.createElement('p')
             emptyMsg.textContent='Click "Generate team" to display a team'
             container.appendChild(emptyMsg)
-            prevTeam=[]
             return
         }
 
         // Render each Pokemon card
-        newTeam.forEach(newPokemon =>{
-            const newCard = Card({data:newPokemon})
-            newCard.dataset.id=newPokemon.id
-            container.appendChild(newCard)
+        newTeam.forEach(pokemon =>{
+            const card = Card({data:pokemon})
+            card.types = pokemon.types.map(t=> t.type.name)
+            card.dataset.id=pokemon.id
+
+            container.appendChild(card)
+            allCards.push(card)
         })
 
-        // keep a copy of the current team for reference
-        prevTeam= newTeam.slice() 
+    }
+
+    const applyFilters=(filters)=>{
+        allCards.forEach(card=>{
+            const isVisible = filters.length===0 || card.types.some(t=>filters.includes(t))
+            card.classList.toggle('filtered-out',!isVisible)
+        })
     }
 
     // Event Delegation:
@@ -51,17 +59,16 @@ export const CardsGrid=()=>{
     // then notifies `selectedPokemon$` with the clicked Pokemon id
     container.addEventListener('click',e=>{
         const card = e.target.closest('.card')
-        if(card && container.contains(card)){
-            const pokemonId = card.dataset.id
-            selectedPokemon$.notify(pokemonId)
-        }
+        if(!card) return
+        selectedPokemon$.notify(card.dataset.id)
     })
 
-    // The initial render (in case observable already has a team)
-    render(team$.getValue())
 
-    // Subscribe for updates => every button click triggers re-render
-    team$.subscribe(team=>render(team))
+    // Subscribe to team changes
+    team$.subscribe(newTeam=>renderTeam(newTeam))
+
+    // Subscribe to filter changes
+    filtersList$.subscribe(filters=> applyFilters(filters))
 
     return container
 }
