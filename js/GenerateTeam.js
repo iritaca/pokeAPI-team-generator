@@ -1,4 +1,4 @@
-import {team$} from './utils/observer.js'
+import {filtersList$, team$} from './utils/observer.js'
 import GeneralButton from './components/Button.js'
 
 /**
@@ -28,13 +28,12 @@ export const PickRandomTeam=({pokemonList,teamSize=6})=>{
     const handleClick =()=>{
         const team = generateTeam({pokemonList,teamSize})
         team$.notify(team) // broadcast and update currentValue of the team
+        // resets `Toggle` Filters
+        filtersList$.notify([])
     }
 
     return GeneralButton({className:'generate-team',label:'Generate team', onClick:handleClick
     })
 }
-
-
-
 
 export default PickRandomTeam

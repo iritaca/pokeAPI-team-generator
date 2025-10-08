@@ -8,16 +8,21 @@ import { CardsGrid } from './components/CardsGrid.js'
 import { fetchAllPokemonData } from './fetchPokemon.js'
 import PickRandomTeam from './GenerateTeam.js'
 import Modal from './components/Modal/Modal.js'
+import Filters from './components/Filters.js'
+
 
 // DOM anchors
-const actions = document.getElementById('actions')
+const generateTeamButton = document.getElementById('generate-button')
+const teamFilters= document.getElementById('filters')
 const main = document.getElementById('main')
 
 //  fetch complete pokemon dataset once on app load
 const fetchList = await fetchAllPokemonData()
 
 
-actions.appendChild(PickRandomTeam({pokemonList:fetchList}))
+generateTeamButton.appendChild(PickRandomTeam({pokemonList:fetchList}))
+
+teamFilters.appendChild(Filters())
 
 main.appendChild(CardsGrid())
 

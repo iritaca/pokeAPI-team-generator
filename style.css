@@ -60,11 +60,20 @@ ul,nav{
     gap:8px;
     border:1px solid;
     cursor: pointer;
-    transition: box-shadow 0.1s ease-in-out;
+    transition: all 0.5s ease-in-out;
+    transform: scale(1);
+}
+.card{
+    transition: all 0.5s ease-in-out;
+    transform: scale(1);
 }
 
 .card:hover{
     box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+}
+.card.filtered-out{
+  opacity: 0.3;
+  transform: scale(0.7);
 }
 
 .card .card-image{
@@ -120,6 +129,7 @@ ul,nav{
   background-color: white;
   border-radius: 3px;
   padding: 16px;
+  height: 509px;
 }
 
 .modal-grid{
@@ -296,10 +306,24 @@ height: 20px;
 
 /*#region evolution chain*/
 .evolution-container{
+  --imageContainerSize: 128px;
   grid-area: evolutions;
   display: flex;
   flex-direction: column;
   gap: 16px;
+}
+
+.modal-evolution-chain{
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 36px;
+}
+
+.modal-evolution-chain > li {
+  width: var(--imageContainerSize);
+  height: var(--imageContainerSize);
+  border-radius: 50%;
+  overflow: hidden;
 }
 
 .evolution-title{
@@ -323,9 +347,9 @@ height: 20px;
    }
 
    .evolution-image{
-    --containerSize: 128px;
-  width: var(--containerSize);
-  height: var(--containerSize);
+    --imageContainerSize: 128px;
+  width: var(--imageContainerSize);
+  height: var(--imageContainerSize);
   border-radius: 50%;
   border: 4px solid yellowgreen;
   display: flex;
@@ -345,6 +369,34 @@ height: 20px;
    }
 
 /*#endregion evolution chain*/
+
+/*#region Filters*/
+#filters > div{
+  display: flex;
+  flex-direction: column;
+  gap:8px;
+}
+
+.toggle{
+  flex:1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  padding: 4px 8px;
+  outline: 0;
+  border: 0;
+  border-radius: 3px;
+  border: 1px solid chocolate;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+.toggle.isActive{
+  border-color:transparent;
+  background-color: chocolate;
+  color: white;
+}
+/*#endregion Filters*/
 
 
 
