@@ -51,3 +51,5 @@ export const selectedPokemon$ = createObservable(undefined)
 export const modalSelectedTab$ = createObservable(undefined)
 
 export const filtersList$ = createObservable([])
+
+export const pokedex$ = createObservable([])

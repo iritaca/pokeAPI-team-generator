@@ -34,3 +34,20 @@ export const classNames =(...args)=>{
         .join(' ')
      
 }
+
+ /**
+  * Creates a debounce version of a function that delays its 
+  * execution, until after `delay` milliseconds have passed since the last call
+  * 
+  * @param {Function} fn - Function to debounce
+  * @param {number} delay  - Delay in milliseconds
+  * 
+  * @returns {Function} Debounce function
+  */
+export function debounce(fn,delay){
+    let timer
+    return(...args)=>{
+        clearTimeout(timer)
+        timer = setTimeout(()=>fn(...args),delay)
+    }
+}
