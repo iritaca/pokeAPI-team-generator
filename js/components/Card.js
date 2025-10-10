@@ -18,11 +18,11 @@ import { PokemonTypes } from './Tag.js'
  * @returns {HTMLDivElement} - representing the pokemon
  */
 const Card=({data})=>{
-    const {id, name,types,sprite } = data
+    const {id, name,types } = data
     const container = document.createElement('div')
     container.classList.add('card')
 
-    const imageContainer = Image({className:'card-image',sprite})
+    const imageContainer = Image({className:'card-image',pokemon:data})
 
     const pokemonNameAndId = document.createElement('div')
     pokemonNameAndId.classList.add('card-name-id')

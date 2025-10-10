@@ -170,7 +170,7 @@ const ModalCard=(pokemon)=>{
         const modalView = ModalView({pokemon})
         grid.appendChild(modalView)
 
-        const img = Image({className:'modal-image',sprite})
+        const img = Image({className:'modal-image',pokemon})
         grid.appendChild(img)
     
         const evolutionChain = await renderPokemonChain({speciesUrl:species,pokemonId:id})

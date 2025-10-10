@@ -112,8 +112,7 @@ const getPokemonChain=(evolutionChain)=>{
 const EvolutionContainer=({pokemon,active})=>{
     const liEl = document.createElement('li')
     liEl.className=classNames({isActive:active===pokemon.id})
-
-    const sprite = Image({sprite:pokemon.sprite, className:'evolution-image'})
+    const sprite = Image({pokemon, className:'evolution-image'})
 
     liEl.appendChild(sprite)
 
