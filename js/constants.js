@@ -1,6 +1,6 @@
 // Maximum number of pokemons to fetch from the API per request
 export const pokemonOffset = 0
-export const pokemonLimit = 60
+export const pokemonLimit = 65
 
 // Maps pokemon types to their corresponding tag colors in the UI
 export const typeColors={
