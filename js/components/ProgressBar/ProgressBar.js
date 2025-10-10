@@ -1,3 +1,5 @@
+import { classNames } from '../../utils/utils.js'
+
 /**
  * Returns a CSS color for a progress bar based on the value
  * 
@@ -9,8 +11,8 @@
  *  - yellowgreen = high
  */
 function getProgressColor(progress){
-    if(progress<=25) return 'tomato'
-    if(progress<=50) return 'orange'
+    if(progress<=33) return 'tomato'
+    if(progress<=66) return 'orange'
     return 'yellowgreen'
 }
 
@@ -23,9 +25,9 @@ function getProgressColor(progress){
  * 
  * @returns {HTMLDivElement} <div> element containing the colored progress bar
  */
-const ProgressBar=(initialProgress=0)=>{
+const ProgressBar=(initialProgress=0,className)=>{
     const progressContainer = document.createElement('div')
-    progressContainer.classList.add('progress-container')
+    progressContainer.className=classNames(['progress-container',className])
 
     const progressBar = document.createElement('div')
     progressBar.classList.add('progress-bar')
