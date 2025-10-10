@@ -1,3 +1,5 @@
+import ProgressBar from '../ProgressBar/ProgressBar.js'
+
 const computedStats = new Map()
 
 /**
@@ -22,21 +24,6 @@ const getComputedStat=({pokemonId,statName,maxValue})=>{
     return computedStats.get(key)
 }
 
-/**
- * Returns a CSS color for a progress bar based on the value
- * 
- * @param {number} progress - Progress value (0-100)
- * 
- * @returns {string} A css color:
- *  - tomato = low
- *  - orange = medium
- *  - yellowgreen = high
- */
-function getProgressColor(progress){
-    if(progress<=25) return 'tomato'
-    if(progress<=50) return 'orange'
-    return 'yellowgreen'
-}
 
 /**
  * Computes the percentage of a stat value relative to its maxValue
@@ -97,29 +84,7 @@ const StatValue =(value)=>{
     return statValueEl
 }
 
-/**
- * Renders a progress bar for a stat value
- * 
- * @param {number} progress - The progress percentage (0-100)
- * 
- * Uses `getProgressColor` to add a custom color based on the progress value
- * 
- * @returns {HTMLDivElement} <div> element containing the colored progress bar
- */
-const StatBar=(progress)=>{
-    const progressContainer = document.createElement('div')
-    progressContainer.classList.add('progress-container')
-    const progressBar = document.createElement('div')
-    progressBar.classList.add('progress-bar')
 
-    progressBar.style.width= `${progress}%`
-
-    const progressColor = getProgressColor(progress)
-    progressBar.style.backgroundColor=progressColor
-
-    progressContainer.appendChild(progressBar)
-    return progressContainer
-}
 
 /**
  * Computes the stat value and progress for a Pokemon stat
@@ -155,7 +120,7 @@ const Stat=({stat,pokemonId})=>{
     
     const statTitleEl = StatTitle(statName)
     const statBaseEl = StatValue(value)
-    const statBarEl = StatBar(progress)
+    const statBarEl = ProgressBar(progress)
 
     statContainer.append(statTitleEl,statBaseEl,statBarEl)
     return statContainer
