@@ -9,22 +9,25 @@ import { fetchAllPokemonData } from './fetchPokemon.js'
 import PickRandomTeam from './GenerateTeam.js'
 import Modal from './components/Modal/Modal.js'
 import Filters from './components/Filters.js'
+import Pokedex from './components/PokedexPanel/Pokedex.js'
 
 
 // DOM anchors
 const generateTeamButton = document.getElementById('generate-button')
 const teamFilters= document.getElementById('filters')
 const main = document.getElementById('main')
+const pokedexSidePanel = document.getElementById('side-panel')
 
 //  fetch complete pokemon dataset once on app load
 const fetchList = await fetchAllPokemonData()
-
 
 generateTeamButton.appendChild(PickRandomTeam({pokemonList:fetchList}))
 
 teamFilters.appendChild(Filters())
 
 main.appendChild(CardsGrid())
+
+pokedexSidePanel.appendChild(Pokedex())
 
 // Initialize modal (to display detailed info)
 const modal = Modal({list:fetchList})
