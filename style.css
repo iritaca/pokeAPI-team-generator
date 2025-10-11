@@ -60,11 +60,7 @@ ul,nav{
     gap:8px;
     border:1px solid;
     cursor: pointer;
-    transition: all 0.5s ease-in-out;
-    transform: scale(1);
-}
-.card{
-    transition: all 0.5s ease-in-out;
+    transition: all 0.2s ease-in-out;
     transform: scale(1);
 }
 
@@ -255,6 +251,7 @@ height: 20px;
   top:0;
   height: 100%;
   background-color: darkolivegreen;
+  transition: width 0.35s ease-in-out;
 }
 
 /*#endregion modal stats view*/
@@ -398,5 +395,118 @@ height: 20px;
 }
 /*#endregion Filters*/
 
+/*#region Pokedex*/
+.sidePanel-container{
+  height: 100%;
+  width: 460px;
+  position: absolute;
+  right: 0;
+  z-index:1;
+  padding: 32px;
+  background-color: aliceblue;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  height: 100%;
+}
+.sidePanel-title{
+  text-align: center;
+}
+.search-section{
+  display: flex;
+  gap:8px;
+  max-height: 40px;
+}
+
+.search-section input{
+  border:1px solid transparent;
+  border-radius: 3px;
+}
+
+.search-section.searchbox-error input,
+.search-section.searchbox-error input:focus{
+  border-color:tomato;
+  outline:transparent;
+}
 
 
+.pokedex-searchbox{
+  flex:1;
+  padding: 8px 16px;
+}
+
+.reset-button{
+  width: auto;
+  height: 40px;
+}
+
+.pokedex-progress{
+  flex: initial;
+  height: 12px;
+}
+
+.sidePanel-list-wrapper{
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap:16px;
+}
+
+.sidePanel-list{
+  overflow-y: scroll;
+  scrollbar-width: 20px;
+  flex:1;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 16px;
+}
+
+.sidePanel-list li{
+  padding: 4px 8px;
+  height: 68px;
+  font-size: 18px;
+  font-weight: 600;
+  text-transform: capitalize;
+  background-color: rgba(122, 191, 220,0.6);
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+
+  transition: background-color 0.35s ease-in;
+}
+.list-item{
+  display: flex;
+  align-items: center;
+  gap:8px;
+}
+.pokedex-image{
+  --imageContainer: 60px;
+  height: var(--imageContainer);
+  width: var(--imageContainer);
+}
+
+.sidePanel-list li.revealed{
+  animation:reveal;
+  animation-duration: 0.2s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes reveal{
+  50%{
+    background-color: rgb(137, 180, 43);
+  }
+  100%{
+    background-color: rgb(122, 191, 220);
+  }
+}
+
+.no-results{
+  height: 100%;
+  font-weight: 600;
+  color:tomato;
+}
+
+
+
+
+/*#endregion Pokedex*/
