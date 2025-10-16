@@ -69,7 +69,7 @@ ul,nav{
 .poke-app{
   display: flex;
   height: 100%;
-  width: 1186px;
+  width: 1200px;
   max-height: 748px;
   border-radius: 6px;
   position: absolute;
@@ -399,6 +399,7 @@ height: 20px;
   display: flex;
   flex-direction: column;
   max-width:300px;
+  min-width: 300px;
 }
 #side-panel header{
   padding: 24px;
