@@ -1,6 +1,7 @@
 import { modalSelectedTab$ } from '../../utils/observer.js'
 import PokemonMoves from './PokemonMoves.js'
 import StatsList from './StatsView.js'
+import renderPokemonChain from '../EvolutionChain.js'
 
 /**
  * Main container for modal views, switch content based on the selected tab
@@ -19,7 +20,7 @@ const ModalViews=(pokemon)=>{
     const {stats,moves,id,name} = pokemon
     const viewList = document.createElement('ul')
     
-     modalSelectedTab$.subscribe(selectedTab=>{
+     modalSelectedTab$.subscribe(async (selectedTab)=>{
         viewList.replaceChildren()
         if(selectedTab==='moves') {
             viewList.classList.add('moves-list')
@@ -28,6 +29,11 @@ const ModalViews=(pokemon)=>{
         if(selectedTab==='stats') {
             viewList.classList.remove('moves-list')
             viewList.appendChild(StatsList({stats,pokemonId:id}))
+        }
+        if(selectedTab==='evolutions'){
+            viewList.classList.remove('moves-list')
+            const evolutionChain = await renderPokemonChain({speciesUrl:pokemon.species,pokemonId:id})
+            viewList.appendChild(evolutionChain)
         }
     })
     return viewList
