@@ -30,7 +30,7 @@ export const CardsGrid=()=>{
 
         if(!Array.isArray(newTeam)|| newTeam.length===0){
             const emptyMsg= document.createElement('p')
-            emptyMsg.textContent='Click "Generate team" to display a team, and start filling the Pokemon list'
+            emptyMsg.textContent='Click "Generate team" to display a team, and start filling the "Seen Pokemon" list'
             emptyMsg.classList.add('grid-empty-message')
             container.appendChild(emptyMsg)
             return
