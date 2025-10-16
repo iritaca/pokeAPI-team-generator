@@ -19,6 +19,10 @@
   
   --toggle-bg: #1E293B;
   --toggle-bg-active:#0F3B60;
+
+  --modal-bg: #142638;
+  --modal-header-bg:#2A4E73;
+  --modal-horizontal-line: #3D4C5A;
   
   --card-bg:#314C68;
   --black: #070B0F;
@@ -26,6 +30,8 @@
   --gray-200:#f2f0ee;
   --white-100: #f0f0f0;
 }
+
+
 
 body {
     --sideColumnWidth: 140px;
@@ -62,7 +68,18 @@ ul,nav{
 }
 
 
-
+.poke-app{
+  display: flex;
+  height: 100%;
+  width: 1186px;
+  max-height: 748px;
+  border-radius: 6px;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  left: 50%;
+  top: 50%;
+  overflow: hidden;
+}
 
 
 /*#region modal*/
@@ -80,21 +97,36 @@ ul,nav{
   width: 80%;
   max-width: 600px;
   background-color: white;
-  border-radius: 3px;
-  padding: 16px;
-  height: 509px;
+  border-radius: 6px;
+  background-color: var(--modal-bg);
+  overflow: hidden;
+  height: 710px;
 }
 
 .modal-grid{
   --gridGap: 8px;
   display:grid;
-  grid-gap:var(--gridGap);
-  grid-template-rows: 36px 20px 1fr min-content ;
-  grid-template-columns: 200px 1fr;
-  grid-template-areas: "title tabs"
-  'subtitle .'
-  "image details"
-  "evolutions evolutions";
+  grid-template-rows: 96px 1fr min-content 64px 208px ;
+  grid-template-columns: 1fr;
+  grid-template-areas: 
+  "title"
+  'image'
+  'subtitle'
+  "tabs"
+  'modal-view'
+  ;
+  height: 100%;
+}
+
+.modal-title .skeleton-loader{
+  max-width: 200px;
+  height: 32px;
+}
+
+.modal-image .skeleton-loader{
+  width: 296px;
+  height: 254px;
+  margin-top: 16px;
 }
 
 .skeleton-loader{
@@ -102,28 +134,28 @@ ul,nav{
   height: 100%;
   position:relative;
   overflow: hidden;
-  background-color: #dddbdd;
+  background-color: var(--primary-100);
   border-radius: 3px;
+  animation: skeleton 1.2s infinite alternate;
 }
-.skeleton-loader::after{
-  content:'';
-  position:absolute;
-  top:0;
-  left:0;
-  width: 100%;
-  height: 100%;
-  transform: translateX(-100%);
-  background: linear-gradient(90deg,rgba(255,255,255, 0) 0%,rgba(255,255,255, 0.2) 20%,rgba(255,255,255, 0.5) 60%,rgba(255,255,255, 0));
-  animation: skeleton 2.5s infinite;
-}
+
 @keyframes skeleton {
-  100%{
-    transform: translate(100%);
-  }
+   0%{
+    opacity: 0.2;
+    transform: translateY(3px) scale(0.98);
+   }
+   100%{
+    opacity: 1;
+    transform: translateY(0px) scale(1);
+   }
 }
 
 .modal-stats{
-  grid-area: details;
+  grid-area: modal-view;
+}
+.modal-stats.stats-loader{
+  margin-top: 24px;
+  padding: 0 24px;
 }
 .modal-stats.stats-loader li{
 height: 20px;
@@ -139,41 +171,57 @@ height: 20px;
   align-items: center;
   gap: 16px;
   text-transform: capitalize;
+  background-color: var(--modal-header-bg);
+  padding: 0 32px;
 }
 .modal-title span{
-  font-size: 14px;
-  transform: translateY(4px);
-  opacity: 0.6;
+  font-size: 1.3rem;
+  transform: translateY(2px);
+  opacity: 0.8;
 }
 
 .modal-subtitle{
   grid-area: subtitle;
+  justify-self: center;
 }
 
 .modal-subtitle.tag-loader{
-  max-width: 50px;
+  width: 148px;
+  height: 54px;
+  padding:12px 0;
 }
 
 .modal-image{
-  --imageContainer: 200px;
   grid-area: image;
-  height: var(--imageContainer);
-  width: var(--imageContainer);
+  width: 50%;
+  justify-self: center;
 }
 .modal-image img{
-  height: 100%;
+  width: 100%;
+  object-fit: contain;
 }
 .modal-tabs{
   grid-area: tabs;
-  align-items: flex-end;
+  justify-self: center;
+  display: flex;
+  align-items: center;
+  gap:32px;
 }
 .modal-tabs.tabs-loader li{
-  width: 80px;
-  height: 100%;
+  width: 102px;
+  height: 54px;
+  padding: 6px 0;
   display: inline-block;
 }
 .modal-tabs.tabs-loader li + li{
   margin-left: var(--gridGap);
+}
+
+.modal-view{
+  grid-area: modal-view;
+  border-top: 1px solid var(--modal-horizontal-line);
+  padding: 24px 0;
+  margin: 0 32px;
 }
 
 /*#endregion modal*/
@@ -185,6 +233,7 @@ height: 20px;
   align-items: center;
   width: 100%;
   font-size: 14px;
+  padding: 2px 0;
 }
 .stat-title{
   text-transform: capitalize;
@@ -225,46 +274,55 @@ height: 20px;
 
 /*#region moves list*/
 .moves-list{
-  padding-left:26px;
   font-size: 14px;
+  display: grid;
+  grid-template-columns: repeat(2,1fr);
+  grid-template-rows: repeat(2,1fr);
+  height: 100%;
+  grid-gap:24px;
 }
-.moves-list >li + li{
-  margin-top:8px;
-}
+
 .move-item{
   text-transform: capitalize;
-  list-style: decimal-leading-zero ;
+  background-color: var(--toggle-bg-active);
+  height: 100%;
+  width: 100%;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 18px;
 }
 
 /*#endregion moves list*/
 
 /*#region tabs*/
-.tabs-container{
-  grid-area: tabs;
-  display: flex;
-
-}
 .tabs-container .tab{
   padding: 8px ;
   cursor: pointer;
   text-transform: capitalize;
-  font-size: 12px;
-  font-weight: 600;
+  font-weight: 500;
+  font-size: 20px;
+  opacity: 0.6;
+  color: var(--white-100);
 }
 .tab + .tab{
   margin-left: 8px;
 }
 .tab.is-active{
   position:relative;
+  opacity: 1;
+  
 }
 .tab.is-active::after{
   content: '';
   position:absolute;
   left: 0;
-  bottom:0;
+  bottom: -6px;
   height: 3px;
   width: 100%;
-  background-color: orangered;
+  background-color: var(--secondary-100);
 }
 /*#endregion tabs*/
 
@@ -339,9 +397,10 @@ height: 20px;
 /*#region Side Panel*/
 #side-panel{
   background-color: var(--primary-100);
-  height: 100vh;
+  height: 100%;
   display: flex;
   flex-direction: column;
+  max-width:300px;
 }
 #side-panel header{
   padding: 24px;
@@ -448,12 +507,12 @@ width: var(--resetButton-size);
 }
 
 #accordion .icon{
-  transform: rotate(180deg);
+  transform: rotate(0deg);
   transition: transform 0.15s ease-in-out;
 }
 
 #accordion.isOpen .icon{
-  transform: rotate(0deg);
+  transform: rotate(180deg);
 }
 
 .accordion-body{
@@ -463,6 +522,13 @@ width: var(--resetButton-size);
   flex-direction: column;
   height: 100%;
   min-height: 0;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.1s ease-in-out;
+}
+#accordion.isOpen .accordion-body{
+  max-height: 100%;
+  overflow: visible;
 }
 
 .no-results{
@@ -535,6 +601,8 @@ width: var(--resetButton-size);
 
 /*#region Main*/
 #main{
+  flex:1;
+  flex-shrink: 0;
   padding: 32px;
   display: grid;
   grid-template-rows: min-content 1fr;
@@ -546,6 +614,7 @@ width: var(--resetButton-size);
 .cards-grid{
     display: grid;
     grid-template-columns: repeat(3,minmax(160px,1fr));
+    grid-auto-rows: 278px;
     gap:24px;
 }
 .grid-empty-message{
