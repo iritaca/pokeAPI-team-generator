@@ -2,8 +2,30 @@ import { pokemonLimit } from '../../constants.js'
 import { pokedex$ } from '../../utils/observer.js'
 import Image from '../ImageContainer.js'
 import ProgressBar from '../ProgressBar/ProgressBar.js'
-import { debounce } from '../../utils/utils.js'
+import { classNames, debounce } from '../../utils/utils.js'
 import GeneralButton from '../Button.js'
+
+const SidePanelAccordion=(child)=>{
+    const accordion = document.getElementById('accordion')
+
+    const accordionButton = document.getElementById('accordion-button')
+    const accordionBody = document.createElement('div')
+
+    accordionBody.className=classNames(['accordion-body'])
+
+    let isOpen = false
+
+    accordionButton.addEventListener('click',()=>{
+        isOpen = !isOpen
+        accordion.className=classNames(isOpen&&'isOpen')
+    })
+    
+    accordionBody.appendChild(child)
+
+    accordion.append(accordionButton,accordionBody)
+
+    return accordion
+}
 
 
 /**
@@ -19,7 +41,7 @@ const SearchBox=({onSearch})=>{
     const input = document.createElement('input')
     input.classList.add('pokedex-searchbox')
     input.name='search-box'
-    input.placeholder='Search for Pokemon name or Id'
+    input.placeholder='Search by name or Id'
 
     const handleSearch=debounce((query)=>{
         onSearch(query)
@@ -78,16 +100,20 @@ const ListItem=({pokemon,id})=>{
  */
 const List=()=>{
     const listContainer = document.createElement('div')
-    listContainer.classList.add('sidePanel-list-wrapper')
+    listContainer.classList.add('pokemon-list-wrapper')
     const list = document.createElement('ul')
-    list.classList.add('sidePanel-list')
+    list.classList.add('pokemon-list')
+
+    const progressContainer= document.getElementById('side-panel__progress')
 
     const searchSection = document.createElement('div')
     searchSection.classList.add('search-section')
 
+    let searchValue = ''
+
     const clearButton = GeneralButton({
-        className:'reset-button',
-        label:'Clear search',
+        className:classNames('reset-button'),
+        label:'x',
         onClick:()=>{
             // Reset the input value
             setValue('')
@@ -104,13 +130,12 @@ const List=()=>{
     // Creates a list of unique items
     let discoveredList = new Set()
     let discoveredListProgress = 0
-    
-
-    let searchValue = ''
 
     const handleSearchBoxValue = (value)=>{
         searchValue=value
         filterList()
+        // Show a clear button next to the search box
+        searchSection.classList.toggle('isVisible',searchValue!=='')
     }
 
     // Creates the searchbox element and the inner function to modify the value
@@ -143,19 +168,22 @@ const List=()=>{
     }
 
     // Creates a Progress to let the user know visually how many items are discovered
-    const pokedexProgress= ProgressBar(discoveredListProgress,'pokedex-progress')
+    const pokedexProgress= ProgressBar({initialProgress:discoveredListProgress,className:'pokedex-progress',label:'progress', showValue:true})
 
     searchSection.append(searchBoxEl,clearButton)
-    listContainer.append(searchSection)
-    listContainer.appendChild(noResult)
-    listContainer.appendChild(pokedexProgress)
+    progressContainer.appendChild(pokedexProgress)
+    listContainer.appendChild(progressContainer)
+    
+    const accordionFragment = document.createDocumentFragment()
+    accordionFragment.append(searchSection,noResult,list)
+    const accrodion=SidePanelAccordion(accordionFragment)
 
     // Main Function to reveal seen pokemons from the list 
     function collected(newList){
         newList.forEach(p=>discoveredList.add(p.id))
         discoveredListProgress = discoveredList.size
         pokedexProgress.update((discoveredList.size/pokemonLimit) * 100)
-        
+
         const lookup = Object.fromEntries(newList.map(p=>[p.id,{name:p.name,sprite:p.sprite}]))
         list.childNodes?.forEach(li=>{
             const pokemon = lookup[li.dataset.id]
@@ -165,14 +193,12 @@ const List=()=>{
                 li.replaceChildren(ListItem({pokemon,id:li.dataset.id}))
             }
         })
-        
-        
+
     }
 
     // Brings the discovered pokemon list
     pokedex$.subscribe(pokedexData => collected(pokedexData))
-    
-    
+
     // Creates the initial list filled with "???"
     for(let i =1;i<=pokemonLimit;i++){
         const liItem = document.createElement('li')
@@ -181,7 +207,7 @@ const List=()=>{
         list.appendChild(liItem)
     }
 
-    listContainer.appendChild(list)
+    listContainer.appendChild(accrodion)
 
     return listContainer
 }
@@ -198,16 +224,7 @@ const List=()=>{
  * - List: handles rendering and managing Pokemon items and interactions
  */
 const Pokedex = ()=>{
-    const container = document.createElement('aside')
-    container.classList.add('sidePanel-container')
-    container.setAttribute('aria-label','pokedex side panel')
-    
-    const title = document.createElement('h3')
-    title.classList.add('sidePanel-title')
-    title.textContent='Pokedex'
-
-    
-    container.appendChild(title)
+    const container = document.getElementById('pokedex-container')
 
     const list = List()
     container.appendChild(list)
