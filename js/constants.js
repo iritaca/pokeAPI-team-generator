@@ -9,7 +9,7 @@ export const typeColors={
         'poison':'purple',
         'bug':'cadetblue',
         'flying':'skyblue',
-        'grass':'chartreuse',
+        'grass':'yellowgreen',
         'normal':'gray',
         'ground':'brown',
         'fairy':'darksalmon',
