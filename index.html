@@ -8,11 +8,38 @@
     <script src='./js/main.js' defer type='module'></script>
 </head>
 <body>
-    <section id ='actions'>
-        <div id="generate-button"></div>
-        <div id="filters"></div>
+    <section id='side-panel'>
+        <header>
+            <h2 class='side-panel__title'>Pokemon team generator</h2>
+            <div id='generate-button'></div>
+        </header>
+
+        <div id='side-panel__progress'></div>
+
+        <div id='accordion'>
+            <button id='accordion-button'>
+                    <h3>Seen Pokemon</h3>
+                    <div class="icon">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 7L10 13L16 7" stroke="currentColor" stroke-width="2"/>
+                        </svg>
+                    </div>
+            </button>
+
+        </div>
+
+        <div id='pokedex-container'></div>
     </section>
-    <section id='main'></section>
-    <section id='side-panel'></section>
+
+    <section id='main'>
+        <div class='filters-container'>
+            <h3>Filter by type</h3>
+            <div id="filters"></div>
+        </div>
+        <div id='grid'>
+
+        </div>
+    </section>
+    
 </body>
 </html>
