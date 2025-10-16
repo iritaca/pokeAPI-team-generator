@@ -5,23 +5,34 @@ import ProgressBar from '../ProgressBar/ProgressBar.js'
 import { classNames, debounce } from '../../utils/utils.js'
 import GeneralButton from '../Button.js'
 
+/**
+ * Creates the side panel accordion component and appens it to the DOM
+ * 
+ * @param {HTMLElement} child - The content element to be placed in the accordion body
+ * 
+ * @return {HTMLElement} The accordion container element with button and body
+ * 
+ * Behavior:
+ * The accordion is open by default
+ * - Clicking the button toggles the open/close state
+ */
 const SidePanelAccordion=(child)=>{
     const accordion = document.getElementById('accordion')
+    accordion.className=classNames('isOpen')
 
     const accordionButton = document.getElementById('accordion-button')
     const accordionBody = document.createElement('div')
 
     accordionBody.className=classNames(['accordion-body'])
 
-    let isOpen = false
-
+    let isOpen = true
+    // Toggles the accordion button click
     accordionButton.addEventListener('click',()=>{
         isOpen = !isOpen
         accordion.className=classNames(isOpen&&'isOpen')
     })
     
     accordionBody.appendChild(child)
-
     accordion.append(accordionButton,accordionBody)
 
     return accordion

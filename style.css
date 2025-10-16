@@ -522,7 +522,7 @@ width: var(--resetButton-size);
   min-height: 0;
   max-height: 0;
   overflow: hidden;
-  transition: max-height 0.1s ease-in-out;
+  transition: max-height 0.2s ease-in-out;
 }
 #accordion.isOpen .accordion-body{
   max-height: 100%;
