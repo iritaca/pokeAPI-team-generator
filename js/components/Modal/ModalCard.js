@@ -20,9 +20,8 @@ const loadersList = [
     {name:'titleEl',className:'modal-title'},
     {name:'tagsContainer',className:['modal-subtitle','tag-loader']},
     {name:'imageContainer',className:'modal-image'},
-    {name:'tabsContainer',listCount:2,className:['modal-tabs','tabs-loader']},
+    {name:'tabsContainer',listCount:3,className:['modal-tabs','tabs-loader']},
     {name:'statsContainer',listCount:5,className:['modal-stats','stats-loader']},
-    {name:'evolutionChain',listCount:1,className:['evolution-container','modal-evolution-chain']}
 ]
 
 /**
@@ -153,7 +152,6 @@ const ModalCard=(pokemon)=>{
     const modalLoaders = ModalLoaders()
     grid.appendChild(modalLoaders)
     
-
     // Defer heavy DOM creation
     setTimeout(async ()=>{
         grid.replaceChildren()
