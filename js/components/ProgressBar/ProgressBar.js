@@ -32,11 +32,12 @@ const ProgressBar=({initialProgress=0,className,label,showValue})=>{
     const progressContainer = document.createElement('div')
     progressContainer.className=classNames(['progress-container',className])
 
-
     const progressRoot = document.createElement('div')
     progressRoot.classList.add('progress-root')
     const progressBar = document.createElement('div')
     progressBar.classList.add('progress-bar')
+
+    let progressValueEl = null
 
     if(label){
         const progressLabel = document.createElement('h4')
@@ -46,10 +47,10 @@ const ProgressBar=({initialProgress=0,className,label,showValue})=>{
     }
 
     if(showValue){
-        const progressValue = document.createElement('p')
-        progressValue.classList.add('progress-value')
-        progressValue.textContent=initialProgress
-        progressContainer.appendChild(progressValue)
+        progressValueEl = document.createElement('p')
+        progressValueEl.classList.add('progress-value')
+        progressValueEl.textContent=initialProgress
+        progressContainer.appendChild(progressValueEl)
     }
 
     progressRoot.appendChild(progressBar)
@@ -58,6 +59,7 @@ const ProgressBar=({initialProgress=0,className,label,showValue})=>{
     const setProgress=(progress)=>{
         progressBar.style.width= `${progress}%`
         progressBar.style.backgroundColor=getProgressColor(progress)
+        if(showValue) progressValueEl.textContent=`${Math.floor(progress)}%`
 
     }
 
