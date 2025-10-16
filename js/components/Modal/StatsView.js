@@ -120,7 +120,7 @@ const Stat=({stat,pokemonId})=>{
     
     const statTitleEl = StatTitle(statName)
     const statBaseEl = StatValue(value)
-    const statBarEl = ProgressBar(progress)
+    const statBarEl = ProgressBar({initialProgress:progress})
 
     statContainer.append(statTitleEl,statBaseEl,statBarEl)
     return statContainer
