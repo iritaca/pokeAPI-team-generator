@@ -16,7 +16,6 @@ import Pokedex from './components/PokedexPanel/Pokedex.js'
 const generateTeamButton = document.getElementById('generate-button')
 const teamFilters= document.getElementById('filters')
 const main = document.getElementById('main')
-const pokedexSidePanel = document.getElementById('side-panel')
 
 //  fetch complete pokemon dataset once on app load
 const fetchList = await fetchAllPokemonData()
@@ -27,7 +26,7 @@ teamFilters.appendChild(Filters())
 
 main.appendChild(CardsGrid())
 
-pokedexSidePanel.appendChild(Pokedex())
+Pokedex()
 
 // Initialize modal (to display detailed info)
 const modal = Modal({list:fetchList})

@@ -39,9 +39,7 @@ const Toggle =({title,count})=>{
  */
 const Filters=()=>{
     const container = document.createElement('div')
-
-    const title = document.createElement('h3')
-    title.textContent='filter by type'
+    container.classList.add('filters-list')
 
     /**
      * Renders togglue buttons based on the current team
@@ -54,8 +52,6 @@ const Filters=()=>{
         if(!Array.isArray(team) || team.length===0){
             return 
         }
-
-        container.appendChild(title)
 
         // Creates a frequency map of Pokemon types
         const frequecyMap =team

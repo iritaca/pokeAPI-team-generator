@@ -12,7 +12,7 @@ import Card from './Card.js'
  * @returns {HTMLDivElement} a <div> element with the `cards-grid` class
  */
 export const CardsGrid=()=>{
-    const container = document.createElement('div')
+    const container = document.getElementById('grid')
     container.classList.add('cards-grid')
 
     let allCards=[]
