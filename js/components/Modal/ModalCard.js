@@ -1,5 +1,4 @@
 import { classNames, displayIdNumber } from '../../utils/utils.js'
-import renderPokemonChain from '../EvolutionChain.js'
 import Image from '../ImageContainer.js'
 import Tabs from '../Tabs.js'
 import { PokemonTypes } from '../Tag.js'
@@ -139,13 +138,12 @@ const ModalView=({pokemon})=>{
  * @param {Object} pokemon  - The pokemon data
  * @param {string} pokemon.id - The pokemon id
  * @param {string} pokemon.name - The pokemon name
- * @param {string} pokemon.sprite - The image source 
  * @param {string} pokemon.types - Array of pokemon types
  * 
  * @returns  {DocumentFragment} - a document Fragment containing HTML structure
  */
 const ModalCard=(pokemon)=>{
-    const {name,id,sprite,types,species} = pokemon
+    const {name,id,types} = pokemon
 
     // main container
     const grid = document.createElement('div')
@@ -164,7 +162,7 @@ const ModalCard=(pokemon)=>{
         const tagsContainer = ModalTags({types})
         grid.append(modalTitleEl,tagsContainer)
     
-        const tabs = Tabs({tabs:['stats','moves'],className:'modal-tabs'})
+        const tabs = Tabs({tabs:['stats','evolutions','moves'],className:'modal-tabs'})
         grid.appendChild(tabs)
     
         const modalView = ModalView({pokemon})
@@ -173,12 +171,10 @@ const ModalCard=(pokemon)=>{
         const img = Image({className:'modal-image',pokemon})
         grid.appendChild(img)
     
-        const evolutionChain = await renderPokemonChain({speciesUrl:species,pokemonId:id})
-
-        grid.appendChild(evolutionChain)
         
         
-
+        
+        
     },800)
 
     return grid

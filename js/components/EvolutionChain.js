@@ -2,20 +2,6 @@ import Image from './ImageContainer.js'
 import { displayIdNumber,classNames } from '../utils/utils.js'
 
 /**
- * Creates and returns an H3 element for the "Evolutions" section title
- * 
- * @returns {HTMLHeadingElement} - An <h3> element with the text "Evolutions"
- * 
- */
-const EvolutionTitle =()=>{
-    const titleEl = document.createElement('h3')
-    titleEl.textContent='Evolutions'
-    titleEl.classList.add('evolution-title')
-    return titleEl
-
-}
-
-/**
  * Fetches the complete evolution chain for a given Pokemon species
  * 
  * This function performs two sequential fetch requests:
@@ -146,9 +132,6 @@ const EvolutionContainer=({pokemon,active})=>{
 
     const container = document.createElement('div')
     container.classList.add('evolution-container')
-
-    const containerTitle = EvolutionTitle()
-    container.appendChild(containerTitle)
 
     const pokemonChainContainer = document.createElement('ul')
     pokemonChainContainer.classList.add('evolution-list')
