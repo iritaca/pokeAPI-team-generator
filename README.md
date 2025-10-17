@@ -88,5 +88,9 @@ The goal of this project was to **practice advanced JavaScript concepts**, inclu
 ![Main App](./assets/visuals/pokeApp-1.png)
 ![Modal](./assets/visuals/pokeApp-2.png)
 
+---
+## Credits 
+Data provided by [PokeAPI](https://pokeapi.co/) - used for educational and portfolio purposes
+
 
 
